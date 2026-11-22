@@ -13,6 +13,7 @@ const menu = [
 
 const categories = ["All", "Hot", "Cold", "Bakery"];
 let activeCat = "All";
+let searchTerm = "";
 let cart = {}; // { itemId: quantity }
 
 const $ = (id) => document.getElementById(id);
@@ -25,7 +26,15 @@ function renderFilters() {
 }
 
 function renderMenu() {
-  const items = menu.filter((m) => activeCat === "All" || m.cat === activeCat);
+  const items = menu.filter(
+    (m) =>
+      (activeCat === "All" || m.cat === activeCat) &&
+      (m.name + " " + m.desc).toLowerCase().includes(searchTerm)
+  );
+  if (!items.length) {
+    $("menuGrid").innerHTML = `<p class="no-results">No items match “${searchTerm}”. Try a different word or category.</p>`;
+    return;
+  }
   $("menuGrid").innerHTML = items
     .map(
       (m) => `
@@ -93,6 +102,11 @@ $("filters").addEventListener("click", (e) => {
   if (!e.target.dataset.cat) return;
   activeCat = e.target.dataset.cat;
   renderFilters();
+  renderMenu();
+});
+
+$("search").addEventListener("input", (e) => {
+  searchTerm = e.target.value.trim().toLowerCase();
   renderMenu();
 });
 

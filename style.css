@@ -57,6 +57,13 @@ button { font: inherit; cursor: pointer; }
 /* Menu */
 .menu { padding: 60px 6vw; }
 .menu h2 { font-size: 2rem; margin-bottom: 18px; }
+.search {
+  width: 100%; max-width: 420px; display: block; margin-bottom: 16px;
+  padding: 10px 14px; font: inherit;
+  border: 2px solid var(--line); border-radius: 8px; background: #fff;
+}
+.search:focus { border-color: var(--green); outline: none; }
+.no-results { grid-column: 1 / -1; color: var(--muted); padding: 24px 0; }
 .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
 .filters button {
   background: transparent; border: 2px solid var(--green); color: var(--green);
